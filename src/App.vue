@@ -1,13 +1,12 @@
 <script>
+import Dashboard from './views/admin/dashboard.vue';
 export default {
+  components: {
+    Dashboard
+  }
 }
 </script>
 <template>
-  <h1>Hello, Vue.js!</h1>
+  <router-view />
 </template>
-<style>
-.page {
-  max-width: 400px;
-  margin: auto;
-}
-</style>
+<style></style>
