@@ -1,5 +1,5 @@
 <template>
-    <div>
-        Day la dashboard
+    <div class="create-book-page">
+
     </div>
 </template>

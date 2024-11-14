@@ -12,6 +12,7 @@
                 <tr>
                     <td>STT</td>
                     <td>Tên sách</td>
+                    <td>Ảnh</td>
                     <td>giá sách</td>
                     <td>Số lượng</td>
                     <td>Nhà xuất bản</td>
@@ -20,7 +21,12 @@
             </thead>
             <tbody class="table-gray">
                 <tr v-for="(book, index) in filteredContacts">
-                    <td>{{ index }}</td>
+                    <td>{{ index + 1 }}</td>
+                    <td>
+                        <div :style="{ backgroundImage: `url(http://127.0.0.1:3000${book.imagePath})` }"
+                            style="width: 100px; height: 100px; background-size: cover; background-position: center;">
+                        </div>
+                    </td>
                     <td>{{ book.name }}</td>
                     <td>{{ book.price }}</td>
                     <td>{{ book.quantity }}</td>
@@ -53,10 +59,13 @@ export default {
         },
     },
     methods: {
+        getBaseUrl() {
+            const { protocol, hostname, port } = window.location;
+            return `${protocol}//${hostname}${port ? `:${port}` : ""}/`;
+        },
         async retriveBooks() {
             try {
                 this.Books = await BookService.getAll();
-                console.log(this.Books);
             } catch (error) {
                 console.log(error);
             }
