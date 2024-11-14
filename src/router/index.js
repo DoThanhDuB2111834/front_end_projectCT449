@@ -1,7 +1,11 @@
 import { createWebHistory, createRouter } from "vue-router";
-import dashboard from "@/views/admin/dashboard.vue";
+import AdminPage from "@/views/admin/AdminPage.vue";
 import login from "@/views/admin/login.vue";
 import authService from "@/services/auth.service";
+import dashboard from "@/views/admin/dashboard.vue";
+import book from "@/views/admin/book/index.vue";
+import createBook from "@/views/admin/book/create.vue";
+import Swal from "sweetalert2";
 const routes = [
   {
     path: "/login",
@@ -11,8 +15,28 @@ const routes = [
   {
     path: "/admin",
     name: "admin",
-    component: dashboard,
-    meta: { requiresRole: "staff" },
+    component: AdminPage,
+
+    children: [
+      {
+        path: "dashboard",
+        name: "dashboard",
+        component: dashboard,
+        meta: { requiresRole: ["staff", "manager"] },
+      },
+      {
+        path: "book",
+        name: "book.index",
+        component: book,
+        meta: { requiresRole: ["staff", "manager"] },
+      },
+      {
+        path: "book/create",
+        name: "book.create",
+        component: createBook,
+        meta: { requiresRole: ["manager"] },
+      },
+    ],
   },
   {
     path: "/:pathMatch(.*)*",
@@ -30,13 +54,29 @@ router.beforeEach(async (to, from, next) => {
     try {
       const role = (await authService.getRole()).data.role;
       // console.log(role);
-      if (role == to.meta.requiresRole) {
+      if (!role) {
+        next({ path: "/login" });
+        await Swal.fire({
+          position: "top",
+          title: "Thông báo",
+          text: "bạn cần phải đăng nhập",
+          icon: "question",
+        });
+      }
+      if (to.meta.requiresRole.indexOf(role) !== -1) {
         next();
       } else {
-        next({ path: "/login" });
+        await Swal.fire({
+          position: "top",
+          title: "Thông báo",
+          text: "bạn không đủ quyền hạn để vào trang này",
+          icon: "question",
+        });
+        next(false);
       }
     } catch (error) {
       next({ path: "/login" });
+      console.log(error.message);
     }
   } else {
     next();

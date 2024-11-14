@@ -2,19 +2,18 @@
     <div class="header">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Trang chủ</a>
+                <router-link :to="{ name: 'dashboard' }" class="navbar-brand">Trang chủ</router-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse flex flex-row" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-grow-1">
-
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
+                            <router-link :to="{ name: 'book.index' }" class="nav-link">Quản lý sách</router-link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
+                            <a class="nav-link" href="#">Quản lý nhà xuất bản</a>
                         </li>
                     </ul>
                     <span class="navbar-text" @click="logout">
