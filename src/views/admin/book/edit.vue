@@ -1,8 +1,8 @@
 <template>
     <div class="row mt-4">
         <div class="create-book-page col-6 offset-3">
-            <h4>Tạo mới sách:</h4>
-            <BookForm :book="book" @submit:book="insertBook"></BookForm>
+            <h4>Chỉnh sửa:</h4>
+            <BookForm :book="book" @submit:book="updateBook"></BookForm>
         </div>
     </div>
 </template>
@@ -17,26 +17,27 @@ export default {
         BookForm,
     },
     data() {
+        const id = this.$route.params.id;
         return {
-            book: {
-                name: null,
-                price: null,
-                quantiy: null,
-                publisherId: null,
-                publicationYear: null,
-                author: null,
-                imagePath: "",
-            }
+            id,
+            book: {},
         }
     },
     methods: {
-        async insertBook(data) {
+        async findBook() {
             try {
-                await bookService.create(data);
+                this.book = await bookService.findById(this.id);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async updateBook(data) {
+            try {
+                await bookService.update(this.id, data);
                 await Swal.fire({
                     position: "top",
                     title: "Thành công",
-                    text: "Thêm sản phẩm thành công",
+                    text: "Cập nhật sản phẩm thành công",
                     icon: "success",
                 });
                 this.$router.push({ name: "book.index" });
@@ -44,6 +45,9 @@ export default {
                 console.log(error);
             }
         }
+    },
+    async mounted() {
+        await this.findBook();
     }
 }
 </script>

@@ -31,7 +31,8 @@
                     <td>{{ book.price }}</td>
                     <td>{{ book.quantity }}</td>
                     <td>{{ book.publisher[0].name }}</td>
-                    <td>Hành động</td>
+                    <td><button class="btn btn-warning" v-on:click="goToBookDetails(book._id)">Chỉnh sửa</button><button
+                            @click="deleteBook(book._id)" class="btn btn-danger ml-2">Xóa</button></td>
                 </tr>
             </tbody>
         </table>
@@ -40,6 +41,7 @@
 <script>
 import InputSearch from "../components/InputSearch.vue";
 import BookService from "../../../services/book.service.js";
+import Swal from "sweetalert2";
 export default {
     components: {
         InputSearch,
@@ -63,11 +65,28 @@ export default {
             const { protocol, hostname, port } = window.location;
             return `${protocol}//${hostname}${port ? `:${port}` : ""}/`;
         },
+        goToBookDetails(bookId) {
+            this.$router.push({ name: 'book.edit', params: { id: bookId } });
+        },
         async retriveBooks() {
             try {
                 this.Books = await BookService.getAll();
             } catch (error) {
                 console.log(error);
+            }
+        },
+        async deleteBook(id) {
+            try {
+                await BookService.delete(id);
+                await Swal.fire({
+                    position: "top",
+                    title: "Thành công",
+                    text: "Xóa sản phẩm thành công",
+                    icon: "success",
+                });
+                this.retriveBooks();
+            } catch (error) {
+                console.error(error);
             }
         }
     },

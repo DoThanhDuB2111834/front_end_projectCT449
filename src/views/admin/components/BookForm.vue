@@ -48,7 +48,7 @@
                 </option>
             </select>
         </div>
-        <ImageInput @change:image="changImageBookProperty"></ImageInput>
+        <ImageInput @change:image="changImageBookProperty" :imagePath="bookLocal.imagePath"></ImageInput>
         <button type="submit" class="btn btn-success">Submit</button>
     </Form>
 </template>
@@ -91,9 +91,17 @@ export default {
         });
         var publishers = [];
         return {
-            bookLocal: this.book,
+            bookLocal: { ...this.book },
             publishers,
             bookFormSchema,
+        }
+    },
+    watch: {
+        book: {
+            handler(newBook) {
+                this.bookLocal = { ...newBook };
+            },
+            deep: true, immediate: true
         }
     },
     methods: {

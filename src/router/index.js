@@ -5,6 +5,7 @@ import authService from "@/services/auth.service";
 import dashboard from "@/views/admin/dashboard.vue";
 import book from "@/views/admin/book/index.vue";
 import createBook from "@/views/admin/book/create.vue";
+import editBook from "@/views/admin/book/edit.vue";
 import Swal from "sweetalert2";
 const routes = [
   {
@@ -16,6 +17,7 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: AdminPage,
+    meta: { requiresRole: ["staff", "manager"] },
 
     children: [
       {
@@ -34,6 +36,12 @@ const routes = [
         path: "book/create",
         name: "book.create",
         component: createBook,
+        meta: { requiresRole: ["manager"] },
+      },
+      {
+        path: "book/edit/:id",
+        name: "book.edit",
+        component: editBook,
         meta: { requiresRole: ["manager"] },
       },
     ],
