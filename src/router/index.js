@@ -6,6 +6,9 @@ import dashboard from "@/views/admin/dashboard.vue";
 import book from "@/views/admin/book/index.vue";
 import createBook from "@/views/admin/book/create.vue";
 import editBook from "@/views/admin/book/edit.vue";
+import publisher from "@/views/admin/publisher/index.vue";
+import editPublisher from "@/views/admin/publisher/edit.vue";
+import createPublisher from "@/views/admin/publisher/create.vue";
 import Swal from "sweetalert2";
 const routes = [
   {
@@ -42,6 +45,24 @@ const routes = [
         path: "book/edit/:id",
         name: "book.edit",
         component: editBook,
+        meta: { requiresRole: ["manager"] },
+      },
+      {
+        path: "publisher",
+        name: "publisher.index",
+        component: publisher,
+        meta: { requiresRole: ["staff", "manager"] },
+      },
+      {
+        path: "publisher/create",
+        name: "publisher.create",
+        component: createPublisher,
+        meta: { requiresRole: ["staff", "manager"] },
+      },
+      {
+        path: "publisher/edit/:id",
+        name: "publisher.edit",
+        component: editPublisher,
         meta: { requiresRole: ["manager"] },
       },
     ],

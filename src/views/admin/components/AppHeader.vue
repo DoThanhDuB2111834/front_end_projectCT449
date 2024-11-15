@@ -13,7 +13,8 @@
                             <router-link :to="{ name: 'book.index' }" class="nav-link">Quản lý sách</router-link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Quản lý nhà xuất bản</a>
+                            <router-link :to="{ name: 'publisher.index' }" class="nav-link">Quản lý nhà xuất
+                                bản</router-link>
                         </li>
                     </ul>
                     <span class="navbar-text" @click="logout">
