@@ -20,7 +20,7 @@ class BookService {
     bookForm.append("price", data.price);
     bookForm.append("quantity", data.quantity);
     bookForm.append("publisherId", data.publisherId);
-
+    bookForm.append("categoryId", data.categoryId);
     bookForm.append("publicationYear", data.publicationYear);
     bookForm.append("author", data.author);
     // Kiểm tra tệp ảnh trước khi thêm vào FormData

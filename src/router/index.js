@@ -13,6 +13,9 @@ import createPublisher from "@/views/admin/publisher/create.vue";
 import category from "@/views/admin/category/index.vue";
 import editCategory from "@/views/admin/category/edit.vue";
 import createCategory from "@/views/admin/category/create.vue";
+import reader from "@/views/admin/reader/index.vue";
+import createReader from "@/views/admin/reader/create.vue";
+import editReader from "@/views/admin/reader/edit.vue";
 import Swal from "sweetalert2";
 const routes = [
   {
@@ -87,6 +90,24 @@ const routes = [
         component: editCategory,
         meta: { requiresRole: ["manager"] },
       },
+      {
+        path: "reader",
+        name: "reader.index",
+        component: reader,
+        meta: { requiresRole: ["manager"] },
+      },
+      {
+        path: "reader/create",
+        name: "reader.create",
+        component: createReader,
+        meta: { requiresRole: ["manager"] },
+      },
+      {
+        path: "reader/edit/:id",
+        name: "reader.edit",
+        component: editReader,
+        meta: { requiresRole: ["manager"] },
+      },
     ],
   },
   {
@@ -113,16 +134,10 @@ router.beforeEach(async (to, from, next) => {
     try {
       const role = store.state.Role;
       if (!role) {
-        next({ path: "/login" });
-        await Swal.fire({
-          position: "top",
-          title: "Thông báo",
-          text: "bạn cần phải đăng nhập",
-          icon: "question",
-        });
+        return next({ path: "/login" });
       }
       if (to.meta.requiresRole.indexOf(role) !== -1) {
-        next();
+        return next();
       } else {
         await Swal.fire({
           position: "top",
@@ -130,7 +145,7 @@ router.beforeEach(async (to, from, next) => {
           text: "bạn không đủ quyền hạn để vào trang này",
           icon: "question",
         });
-        next(false);
+        return next(false);
       }
     } catch (error) {
       next({ path: "/login" });

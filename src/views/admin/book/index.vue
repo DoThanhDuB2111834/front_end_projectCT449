@@ -1,10 +1,18 @@
 <template>
     <div class="book-list-view">
         <div class="row d-flex justify-content-between mb-3">
-            <h3 class="col-4">Danh sách các loại sách</h3>
-            <div class="row col-5">
-                <InputSearch v-model="searchText" class="col-8" />
-                <router-link :to="{ name: 'book.create' }" class="btn btn-success col-4">Thêm sách mới</router-link>
+            <h3 class="col-5">Danh sách sách:</h3>
+            <div class="col-4 row justify-content-end">
+                <router-link :to="{ name: 'book.create' }" class="btn btn-success col-7">Thêm sách
+                    mới</router-link>
+            </div>
+
+        </div>
+        <div class="row d-flex justify-content-between mb-4">
+            <h3 class="title col-1">Lọc:</h3>
+            <div class="filter col-8 d-flex justify-content-end p-0">
+                <CategoryFilter v-model="filterCategory" class="col-4"></CategoryFilter>
+                <InputSearch v-model="searchText" class="col-5 p-0" />
             </div>
         </div>
         <table class="table">
@@ -21,7 +29,7 @@
                 </tr>
             </thead>
             <tbody class="table-gray">
-                <tr v-for="(book, index) in filteredContacts">
+                <tr v-for="(book, index) in filteredBooksByName">
                     <td>{{ index + 1 }}</td>
                     <td>
                         <div v-if="book.imagePath"
@@ -44,27 +52,46 @@
 </template>
 <script>
 import InputSearch from "../components/InputSearch.vue";
+import CategoryFilter from "../components/CategoryFilter.vue";
 import BookService from "../../../services/book.service.js";
 import Swal from "sweetalert2";
 import { mapState, mapActions } from 'vuex';
 export default {
     components: {
         InputSearch,
+        CategoryFilter,
     },
     data() {
         return {
+            filterCategory: "",
             searchText: "",
             Books: [],
+            filterBook: [],
         }
     },
     computed: {
         ...mapState(['Role']),
-        filteredContacts() {
-            if (!this.searchText) return this.Books;
-            return this.Books.filter((book, index) =>
-                book.name.includes(this.searchText)
-            );
+        filteredBooksByName() {
+            // this.filterBook = this.Books;
+            // if (this.searchText) {
+            //     this.filterBook = this.filterBook.filter((book, index) =>
+            //         book.name.includes(this.searchText)
+            //     );
+            // }
+            // if (this.filterCategory) {
+            //     this.filterBook = this.filterBook.filter((book, index) => {
+            //         // console.log(book.category[0].name);
+            //         return book.category[0].name.includes(this.filterCategory)
+            //     }
+            //     );
+            // }
+            // return this.filterBook;
+            if (this.filterBook || this.searchText) {
+                return this.Books.filter((book, index) => book.category[0].name.includes(this.filterCategory)
+                    && book.name.includes(this.searchText));
+            }
         },
+
     },
     methods: {
         getBaseUrl() {
@@ -77,6 +104,7 @@ export default {
         async retriveBooks() {
             try {
                 this.Books = await BookService.getAll();
+
             } catch (error) {
                 console.log(error);
             }

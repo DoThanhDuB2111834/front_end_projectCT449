@@ -19,6 +19,9 @@
                         <li class="nav-item">
                             <router-link :to="{ name: 'category.index' }" class="nav-link">Danh mục</router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link :to="{ name: 'reader.index' }" class="nav-link">Đọc giả</router-link>
+                        </li>
                     </ul>
                     <span class="navbar-text" @click="logout">
                         <i class="fas fa-user"></i>
