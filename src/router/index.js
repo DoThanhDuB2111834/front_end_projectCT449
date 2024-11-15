@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
+import store from "./store"; // Import Vuex store
 import AdminPage from "@/views/admin/AdminPage.vue";
 import login from "@/views/admin/login.vue";
 import authService from "@/services/auth.service";
@@ -79,10 +80,17 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  if (!store.state.Role) {
+    try {
+      await store.dispatch("fetchRole"); // Gọi action fetchRole để khởi tạo role
+    } catch (error) {
+      console.error("Failed to fetch role:", error);
+    }
+  }
+
   if (to.matched.some((record) => record.meta.requiresRole)) {
     try {
-      const role = (await authService.getRole()).data.role;
-      // console.log(role);
+      const role = store.state.Role;
       if (!role) {
         next({ path: "/login" });
         await Swal.fire({

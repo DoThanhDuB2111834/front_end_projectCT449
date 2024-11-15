@@ -14,15 +14,16 @@
                     <td>STT</td>
                     <td>Tên nhà xuất bản</td>
                     <td>Địa chỉ</td>
-                    <td>Hành động</td>
+                    <td v-if="Role == 'manager'">Hành động</td>
                 </tr>
             </thead>
-            <tbody class="table-gray">
+            <tbody class=" table-gray">
                 <tr v-for="(publisher, index) in filteredPublisher">
                     <td>{{ index + 1 }}</td>
                     <td>{{ publisher.name }}</td>
                     <td>{{ publisher.address }}</td>
-                    <td><button class="btn btn-warning" @click="goToPublisherDetails(publisher._id)">Chỉnh
+                    <td v-if="Role == 'manager'"><button class="btn btn-warning"
+                            @click="goToPublisherDetails(publisher._id)">Chỉnh
                             sửa</button><button @click="deletePublisher(publisher._id)"
                             class="btn btn-danger ml-2">Xóa</button>
                     </td>
@@ -36,6 +37,7 @@
 import InputSearch from "../components/InputSearch.vue";
 import Swal from "sweetalert2";
 import publisherService from "@/services/publisher.service";
+import { mapState, mapActions } from 'vuex';
 
 export default {
     components: {
@@ -48,6 +50,7 @@ export default {
         }
     },
     computed: {
+        ...mapState(['Role']),
         filteredPublisher() {
             if (!this.searchText) return this.publishers;
             return this.publishers.filter((publisher, index) =>
@@ -94,8 +97,8 @@ export default {
             }
         }
     },
-    mounted() {
-        this.retrivePublishers();
+    async mounted() {
+        await this.retrivePublishers();
     }
 }
 </script>

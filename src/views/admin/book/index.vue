@@ -16,7 +16,7 @@
                     <td>giá sách</td>
                     <td>Số lượng</td>
                     <td>Nhà xuất bản</td>
-                    <td>Hành động</td>
+                    <td v-if="Role == 'manager'">Hành động</td>
                 </tr>
             </thead>
             <tbody class="table-gray">
@@ -31,7 +31,8 @@
                     <td>{{ book.price }}</td>
                     <td>{{ book.quantity }}</td>
                     <td>{{ book.publisher[0].name }}</td>
-                    <td><button class="btn btn-warning" v-on:click="goToBookDetails(book._id)">Chỉnh sửa</button><button
+                    <td v-if="Role == 'manager'"><button class="btn btn-warning"
+                            v-on:click="goToBookDetails(book._id)">Chỉnh sửa</button><button
                             @click="deleteBook(book._id)" class="btn btn-danger ml-2">Xóa</button></td>
                 </tr>
             </tbody>
@@ -42,6 +43,7 @@
 import InputSearch from "../components/InputSearch.vue";
 import BookService from "../../../services/book.service.js";
 import Swal from "sweetalert2";
+import { mapState, mapActions } from 'vuex';
 export default {
     components: {
         InputSearch,
@@ -53,6 +55,7 @@ export default {
         }
     },
     computed: {
+        ...mapState(['Role']),
         filteredContacts() {
             if (!this.searchText) return this.Books;
             return this.Books.filter((book, index) =>
