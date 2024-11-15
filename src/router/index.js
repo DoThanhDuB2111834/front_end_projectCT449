@@ -10,6 +10,9 @@ import editBook from "@/views/admin/book/edit.vue";
 import publisher from "@/views/admin/publisher/index.vue";
 import editPublisher from "@/views/admin/publisher/edit.vue";
 import createPublisher from "@/views/admin/publisher/create.vue";
+import category from "@/views/admin/category/index.vue";
+import editCategory from "@/views/admin/category/edit.vue";
+import createCategory from "@/views/admin/category/create.vue";
 import Swal from "sweetalert2";
 const routes = [
   {
@@ -64,6 +67,24 @@ const routes = [
         path: "publisher/edit/:id",
         name: "publisher.edit",
         component: editPublisher,
+        meta: { requiresRole: ["manager"] },
+      },
+      {
+        path: "category",
+        name: "category.index",
+        component: category,
+        meta: { requiresRole: ["staff", "manager"] },
+      },
+      {
+        path: "category/create",
+        name: "category.create",
+        component: createCategory,
+        meta: { requiresRole: ["manager"] },
+      },
+      {
+        path: "category/edit/:id",
+        name: "category.edit",
+        component: editCategory,
         meta: { requiresRole: ["manager"] },
       },
     ],

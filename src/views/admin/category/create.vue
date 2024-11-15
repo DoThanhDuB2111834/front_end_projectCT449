@@ -1,40 +1,40 @@
 <template>
     <div class="row mt-4">
-        <div class="create-publisher-page col-6 offset-3">
+        <div class="create-book-page col-6 offset-3">
             <h4>Chỉnh sửa:</h4>
-            <PublisherForm :publisher="publisher" @submit:publisher="insertPublisher"></PublisherForm>
+            <CategoryForm :category="category" @submit:category="insertCategory">
+            </CategoryForm>
         </div>
     </div>
 </template>
 
 <script>
 import Swal from 'sweetalert2';
-import publisherService from "@/services/publisher.service";
-import PublisherForm from "../components/PublisherForm.vue";
+import categoryService from "@/services/category.service";
+import CategoryForm from "../components/CategoryForm.vue";
 
 export default {
     components: {
-        PublisherForm,
+        CategoryForm,
     },
     data() {
         return {
-            publisher: {
+            category: {
                 name: null,
-                address: null,
             }
         }
     },
     methods: {
-        async insertPublisher(data) {
+        async insertCategory(data) {
             try {
-                await publisherService.create(data);
+                await categoryService.create(data);
                 await Swal.fire({
                     position: "top",
                     title: "Thành công",
-                    text: "Thêm nhà cung ứng thành công",
+                    text: "Thêm danh mục thành công",
                     icon: "success",
                 });
-                this.$router.push({ name: "publisher.index" });
+                this.$router.push({ name: "category.index" });
             } catch (e) {
                 console.log(e);
             }

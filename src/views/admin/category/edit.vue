@@ -1,51 +1,52 @@
 <template>
     <div class="row mt-4">
-        <div class="create-publisher-page col-6 offset-3">
+        <div class="create-category-page col-6 offset-3">
             <h4>Chỉnh sửa:</h4>
-            <PublisherForm :publisher="publisher" @submit:publisher="updatePublisher"></PublisherForm>
+            <CategoryForm :category="category" @submit:category="updateCategory">
+            </CategoryForm>
         </div>
     </div>
 </template>
 <script>
 import Swal from 'sweetalert2';
-import publisherService from "@/services/publisher.service";
-import PublisherForm from "../components/PublisherForm.vue";
+import categoryService from "@/services/category.service";
+import CategoryForm from "../components/CategoryForm.vue";
 export default {
     components: {
-        PublisherForm,
+        CategoryForm,
     },
     data() {
         const id = this.$route.params.id;
         return {
             id,
-            publisher: {},
+            category: {},
         }
     },
     methods: {
-        async findPublisher() {
+        async findCategory() {
             try {
-                this.publisher = await publisherService.findById(this.id);
+                this.category = await categoryService.findById(this.id);
             } catch (error) {
                 console.log(error);
             }
         },
-        async updatePublisher(data) {
+        async updateCategory(data) {
             try {
-                await publisherService.update(this.id, data);
+                await categoryService.update(this.id, data);
                 await Swal.fire({
                     position: "top",
                     title: "Thành công",
                     text: "Cập nhật nhà xuất bản thành công",
                     icon: "success",
                 });
-                this.$router.push({ name: "publisher.index" });
+                this.$router.push({ name: "category.index" });
             } catch (error) {
                 console.log(error);
             }
         }
     },
     async mounted() {
-        await this.findPublisher();
+        await this.findCategory();
     }
 }
 </script>

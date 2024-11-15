@@ -20,6 +20,14 @@ export default {
             image: "",
         }
     },
+    watch: {
+        imagePath: {
+            handler(newimagePath) {
+                this.image = newimagePath;
+            },
+            deep: true, immediate: true
+        },
+    },
     methods: {
         getBaseUrl() {
             const { protocol, hostname, port } = window.location;

@@ -48,6 +48,14 @@
                 </option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="category">Danh mục: </label>
+
+            <select class="form-control" id="category" v-model="bookLocal.categoryId">
+                <option v-for="(category, index) in categories" :value="category._id">{{ category.name }}
+                </option>
+            </select>
+        </div>
         <ImageInput @change:image="changImageBookProperty" :imagePath="bookLocal.imagePath"></ImageInput>
         <button type="submit" class="btn btn-success">Submit</button>
     </Form>
@@ -57,6 +65,7 @@
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import publisherService from "@/services/publisher.service";
+import categoryService from "@/services/category.service";
 import ImageInput from "./ImageInput.vue";
 
 export default {
@@ -90,9 +99,11 @@ export default {
                 .max(50, "Tên tác giả không được vượt quá 50 ký tự"),
         });
         var publishers = [];
+        var categories = [];
         return {
             bookLocal: { ...this.book },
             publishers,
+            categories,
             bookFormSchema,
         }
     },
@@ -111,12 +122,16 @@ export default {
         async retrivePubliser() {
             this.publishers = await publisherService.getAll();
         },
+        async retriveCateroy() {
+            this.categories = await categoryService.getAll();
+        },
         changImageBookProperty(data) {
             this.bookLocal.image = data;
         }
     },
     mounted() {
         this.retrivePubliser();
+        this.retriveCateroy();
     }
 }
 </script>

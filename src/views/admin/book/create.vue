@@ -23,6 +23,7 @@ export default {
                 price: null,
                 quantiy: null,
                 publisherId: null,
+                categoryId: null,
                 publicationYear: null,
                 author: null,
                 imagePath: "",

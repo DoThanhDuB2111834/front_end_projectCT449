@@ -16,6 +16,7 @@
                     <td>giá sách</td>
                     <td>Số lượng</td>
                     <td>Nhà xuất bản</td>
+                    <td>Danh mục</td>
                     <td v-if="Role == 'manager'">Hành động</td>
                 </tr>
             </thead>
@@ -23,7 +24,8 @@
                 <tr v-for="(book, index) in filteredContacts">
                     <td>{{ index + 1 }}</td>
                     <td>
-                        <div :style="{ backgroundImage: `url(http://127.0.0.1:3000${book.imagePath})` }"
+                        <div v-if="book.imagePath"
+                            :style="{ backgroundImage: `url(http://127.0.0.1:3000${book.imagePath})` }"
                             style="width: 100px; height: 100px; background-size: cover; background-position: center;">
                         </div>
                     </td>
@@ -31,6 +33,7 @@
                     <td>{{ book.price }}</td>
                     <td>{{ book.quantity }}</td>
                     <td>{{ book.publisher[0].name }}</td>
+                    <td>{{ book.category[0].name }}</td>
                     <td v-if="Role == 'manager'"><button class="btn btn-warning"
                             v-on:click="goToBookDetails(book._id)">Chỉnh sửa</button><button
                             @click="deleteBook(book._id)" class="btn btn-danger ml-2">Xóa</button></td>

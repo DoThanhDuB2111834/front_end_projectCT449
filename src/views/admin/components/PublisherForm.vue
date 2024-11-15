@@ -23,7 +23,6 @@
 <script>
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
-import publisherService from "@/services/publisher.service";
 
 export default {
     components: {
@@ -45,10 +44,8 @@ export default {
                 .string()
                 .required("Địa chỉ không được rỗng")
         });
-        var publishers = [];
         return {
             publisherLocal: { ...this.publisher },
-            publishers,
             publisherFormSchema,
         }
     },
