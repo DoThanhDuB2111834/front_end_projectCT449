@@ -1,7 +1,7 @@
 <template>
     <div class="book-list-view">
         <div class="row d-flex justify-content-between mb-3">
-            <h3 class="col-5">Danh sách sách:</h3>
+            <h3 class="col-5">Tổng hợp tất cả sách:</h3>
             <div class="col-4 row justify-content-end">
                 <router-link :to="{ name: 'book.create' }" class="btn btn-success col-7">Thêm sách
                     mới</router-link>

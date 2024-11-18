@@ -4,8 +4,8 @@
             <h3 class="col-5">Danh sách các nhà xuất bản</h3>
             <div class="row col-6">
                 <InputSearch v-model="searchText" class="col-8" />
-                <router-link :to="{ name: 'publisher.create' }" class="btn btn-success col-4">Thêm sách
-                    mới</router-link>
+                <router-link :to="{ name: 'publisher.create' }" class="btn btn-success col-4">Thêm nhà xuất
+                    bản</router-link>
             </div>
         </div>
         <table class="table">

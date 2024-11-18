@@ -16,6 +16,9 @@ import createCategory from "@/views/admin/category/create.vue";
 import reader from "@/views/admin/reader/index.vue";
 import createReader from "@/views/admin/reader/create.vue";
 import editReader from "@/views/admin/reader/edit.vue";
+import bookOrder from "@/views/admin/ManageBorrowsBook/index.vue";
+import createBookOrder from "@/views/admin/ManageBorrowsBook/create.vue";
+import editBookOrder from "@/views/admin/ManageBorrowsBook/edit.vue";
 import Swal from "sweetalert2";
 const routes = [
   {
@@ -64,7 +67,7 @@ const routes = [
         path: "publisher/create",
         name: "publisher.create",
         component: createPublisher,
-        meta: { requiresRole: ["staff", "manager"] },
+        meta: { requiresRole: ["staff"] },
       },
       {
         path: "publisher/edit/:id",
@@ -94,7 +97,7 @@ const routes = [
         path: "reader",
         name: "reader.index",
         component: reader,
-        meta: { requiresRole: ["manager"] },
+        meta: { requiresRole: ["staff", "manager"] },
       },
       {
         path: "reader/create",
@@ -107,6 +110,24 @@ const routes = [
         name: "reader.edit",
         component: editReader,
         meta: { requiresRole: ["manager"] },
+      },
+      {
+        path: "bookOrder",
+        name: "bookOrder.index",
+        component: bookOrder,
+        meta: { requiresRole: ["staff", "manager"] },
+      },
+      {
+        path: "bookOrder/create",
+        name: "bookOrder.create",
+        component: createBookOrder,
+        meta: { requiresRole: ["staff", "manager"] },
+      },
+      {
+        path: "bookOrder/edit/:id",
+        name: "bookOrder.edit",
+        component: editBookOrder,
+        meta: { requiresRole: ["staff", "manager"] },
       },
     ],
   },

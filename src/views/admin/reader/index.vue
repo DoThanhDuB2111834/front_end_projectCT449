@@ -3,7 +3,7 @@
         <div class="row d-flex justify-content-between mb-3">
             <h3 class="col-5">Danh sách người dùng:</h3>
             <div class="col-4 row justify-content-end">
-                <router-link :to="{ name: 'reader.create' }" class="btn btn-success col-7">Thêm người dùng
+                <router-link :to="{ name: 'reader.create' }" class="btn btn-success col-7">Thêm đọc giả
                     mới</router-link>
             </div>
 
