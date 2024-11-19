@@ -19,12 +19,39 @@ import editReader from "@/views/admin/reader/edit.vue";
 import bookOrder from "@/views/admin/ManageBorrowsBook/index.vue";
 import createBookOrder from "@/views/admin/ManageBorrowsBook/create.vue";
 import editBookOrder from "@/views/admin/ManageBorrowsBook/edit.vue";
+import ClientPage from "@/views/client/ClientPage.vue";
+import clientIndex from "@/views/client/index.vue";
+import BookDeatil from "@/views/client/BookDeatil.vue";
+import ClientBorrow from "@/views/client/ClientBorrow.vue";
 import Swal from "sweetalert2";
+
 const routes = [
   {
-    path: "/login",
+    path: "/admin/login",
     name: "login",
     component: login,
+  },
+  {
+    path: "/",
+    name: "client",
+    component: ClientPage,
+    children: [
+      {
+        path: "/",
+        name: "index",
+        component: clientIndex,
+      },
+      {
+        path: "/detail/:id",
+        name: "detail",
+        component: BookDeatil,
+      },
+      {
+        path: "/borrow/:bookId",
+        name: "clientBorrow",
+        component: ClientBorrow,
+      },
+    ],
   },
   {
     path: "/admin",
@@ -155,7 +182,7 @@ router.beforeEach(async (to, from, next) => {
     try {
       const role = store.state.Role;
       if (!role) {
-        return next({ path: "/login" });
+        return next({ path: "/admin/login" });
       }
       if (to.meta.requiresRole.indexOf(role) !== -1) {
         return next();
@@ -169,7 +196,7 @@ router.beforeEach(async (to, from, next) => {
         return next(false);
       }
     } catch (error) {
-      next({ path: "/login" });
+      next({ path: "/admin/login" });
       console.log(error.message);
     }
   } else {

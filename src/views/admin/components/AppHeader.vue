@@ -74,7 +74,7 @@ export default {
             await authService.logout();
             console.log("Dang xuat");
             this.deleteCookie("token");
-            this.$router.replace('/login');
+            this.$router.replace('/admin/login');
         }
     }
 }

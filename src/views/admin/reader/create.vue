@@ -32,14 +32,26 @@ export default {
     methods: {
         async insertReader(data) {
             try {
-                await readerService.create(data);
-                await Swal.fire({
-                    position: "top",
-                    title: "Thành công",
-                    text: "Thêm đọc giả thành công",
-                    icon: "success",
-                });
-                this.$router.push({ name: "reader.index" });
+                const response = await readerService.create(data);
+
+                if (response.message) {
+                    await Swal.fire({
+                        position: "top",
+                        title: "Thất bại",
+                        text: response.message,
+                        icon: "error",
+                    });
+                }
+                else {
+                    this.$router.push({ name: "reader.index" });
+                    await Swal.fire({
+                        position: "top",
+                        title: "Thành công",
+                        text: "Thêm đọc giả thành công",
+                        icon: "success",
+                    });
+                }
+
             } catch (error) {
                 console.log(error);
             }

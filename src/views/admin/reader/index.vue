@@ -18,6 +18,7 @@
             <thead class="table-dark">
                 <tr>
                     <td>STT</td>
+                    <td>email</td>
                     <td>Họ và tên</td>
                     <td>Ngày sinh</td>
                     <td>Phái</td>
@@ -29,6 +30,7 @@
             <tbody class="table-gray">
                 <tr v-for="(reader, index) in filteredReader">
                     <td>{{ index + 1 }}</td>
+                    <td>{{ reader.email }}</td>
                     <td>{{ reader.surname + " " + reader.name }}</td>
                     <td>{{ reader.birthdate }}</td>
                     <td>{{ reader.gender }}</td>

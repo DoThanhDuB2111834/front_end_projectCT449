@@ -9,6 +9,7 @@ class BookService {
   async getAll() {
     return (await this.api.get("/manageBorrow")).data;
   }
+
   getBaseUrl() {
     const { protocol, hostname, port } = window.location;
     return `${protocol}//${hostname}${port ? `:${port}` : ""}/`;
@@ -17,6 +18,8 @@ class BookService {
   async create(data) {
     return (await this.api.post("/manageBorrow", data)).data;
   }
+
+  async clientBorrow(data) {}
 
   async findById(id) {
     return (await this.api.get(`/manageBorrow/${id}`)).data;

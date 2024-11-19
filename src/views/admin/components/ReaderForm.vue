@@ -1,6 +1,14 @@
 <template>
     <Form @submit="submitReader" :validation-schema="readerFormSchema">
         <div class="form-group">
+            <label for="email">Email: </label>
+
+            <Field name="email" type="email" class="form-control" placeholder="Nhập vào email"
+                v-model="readerLocal.email" />
+
+            <ErrorMessage name="email" class="text-danger" />
+        </div>
+        <div class="form-group">
             <label for="surname">Họ: </label>
 
             <Field name="surname" type="text" class="form-control" placeholder="Nhập vào họ"
