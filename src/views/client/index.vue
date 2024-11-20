@@ -16,9 +16,9 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ book.name }}</h5>
-                        <p class="card-text">{{ book.category[0].name }}</p>
+                        <p class="card-text">{{ book.category[0]?.name ?? '' }}</p>
                         <p class="card-text">{{ book.quantity > 0 ? 'Còn sách' : 'Hết sách' }}</p>
-                        <p class="card-text">{{ book.publisher[0].name }}</p> <button class="btn btn-primary"
+                        <p class="card-text">{{ book.publisher[0]?.name ?? '' }}</p> <button class="btn btn-primary"
                             @click="gotoDetail(book._id)">Xem chi tiết</button>
                     </div>
                 </div>

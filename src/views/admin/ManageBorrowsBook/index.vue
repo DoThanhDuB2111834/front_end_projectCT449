@@ -37,7 +37,7 @@
                     <td>{{ bookOrder.reader[0].name }}</td>
                     <td>{{ bookOrder.dateBorrow }}</td>
                     <td>{{ bookOrder.dateReturn }}</td>
-                    <td>{{ bookOrder.staff[0].name }}</td>
+                    <td>{{ bookOrder.staff[0]?.name ?? 'Không có' }}</td>
                     <td>{{ bookOrder.state }}</td>
                     <td v-if="Role == 'manager'"><button class="btn btn-warning"
                             v-on:click="goToBookDetails(bookOrder._id)">Chỉnh
@@ -84,6 +84,7 @@ export default {
         async retriveBookOrder() {
             try {
                 this.BookOrders = await managerBorrowsBookService.getAll();
+                console.log(this.BookOrders);
             } catch (error) {
                 console.log(error);
             }

@@ -22,7 +22,8 @@
                     </div>
                     <div class="mt-4 d-flex flex-row">
                         <h5>Địa chỉ: </h5>
-                        <p style="margin: 0 10px;" id="address">{{ manageBorrowBook.reader[0].address }}</p>
+                        <p style="margin: 0 10px;" id="address">{{ manageBorrowBook.reader[0].address }}
+                        </p>
                     </div>
                     <div class="mt-4 d-flex flex-row">
                         <h5>Số điện thoại: </h5>
@@ -31,7 +32,8 @@
 
                     <div class="mt-5 d-flex flex-row align-items-center">
                         <h3>Nhân viên xác nhận: </h3>
-                        <p style="margin: 0 10px;" id="phoneNumber">{{ manageBorrowBook.staff[0].name }}</p>
+                        <p style="margin: 0 10px;" id="phoneNumber">{{ manageBorrowBook.staff[0]?.name ?? 'Không có' }}
+                        </p>
                     </div>
                 </div>
                 <div class=" col-6">
@@ -86,9 +88,12 @@
                     <div class="form-group">
                         <label for="state">Trạng thái</label>
                         <select name="" class="form-control" id="state" v-model="this.manageBorrowBook.state">
-                            <option value="">--</option>
+
+                            <option value="Chờ xác nhận">Chờ xác nhận</option>
                             <option value="Đang mượn">Đang mượn</option>
                             <option value="Đã trả">Đã trả</option>
+                            <option value="Trễ hạn">Trễ hạn</option>
+                            <option value="Đã hủy">Đã hủy</option>
                         </select>
                     </div>
                     <button class="btn btn-success" type="submit">Cập nhật trạng thái đơn mượn sách</button>

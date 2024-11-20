@@ -1,7 +1,7 @@
 import createApiClient from "./api.service";
 import axios from "axios";
 
-class BookService {
+class BorrowBookService {
   constructor(baseUrl = "/api") {
     this.api = createApiClient(baseUrl);
   }
@@ -19,7 +19,19 @@ class BookService {
     return (await this.api.post("/manageBorrow", data)).data;
   }
 
-  async clientBorrow(data) {}
+  async clientBorrowRequest(data) {
+    return await this.api.post("/manageBorrow/clientBorrowRequest", data).data;
+  }
+
+  async verify(code) {
+    return await this.api.get(`/manageBorrow/verify/${code}`).data;
+  }
+
+  async clientBorrowRequestWithAccount(data) {
+    return (
+      await this.api.post(`/manageBorrow/clientBorrowRequestWithAccount`, data)
+    ).data;
+  }
 
   async findById(id) {
     return (await this.api.get(`/manageBorrow/${id}`)).data;
@@ -43,4 +55,4 @@ class BookService {
   }
 }
 
-export default new BookService();
+export default new BorrowBookService();
