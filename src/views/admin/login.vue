@@ -75,7 +75,7 @@ export default {
             try {
                 var loginResult = await authService.login(this.loginData);
                 this.setCookie("token", loginResult.data.token, 1);
-                this.$router.push({ name: "admin" });
+                this.$router.push({ name: "bookOrder.index" });
             } catch (error) {
                 console.error(error);
             }

@@ -59,6 +59,10 @@
                                 <p id="bookPrice" style="margin: 0 10px;"></p>
                             </div>
                             <div class="mt-3 d-flex flex-row">
+                                <h5>Số lượng sách: </h5>
+                                <p id="bookQuantity" style="margin: 0 10px;"></p>
+                            </div>
+                            <div class="mt-3 d-flex flex-row">
                                 <h5>Tác giả: </h5>
                                 <p id="bookAuthor" style="margin: 0 10px;"></p>
                             </div>
@@ -193,9 +197,26 @@ export default {
                         document.getElementById("bookPublicationYear").textContent = book.publicationYear;
                         document.getElementById("bookCategory").textContent = book.category[0].name;
                         document.getElementById("bookPublisher").textContent = book.publisher[0].name;
+                        document.getElementById("bookQuantity").textContent = book.quantity;
                         console.log(this.manageBorrowBook);
                     };
-                    li.textContent = `${book.name} #${book._id}`;
+                    // li.textContent = `${book.name} #${book._id}`;
+                    var imageElement = document.createElement('img');
+                    imageElement.style.marginRight = '10px';
+                    imageElement.setAttribute('src', `http://127.0.0.1:3000${book.imagePath}`);
+                    imageElement.style.width = '50px';
+                    imageElement.style.height = '50px';
+                    imageElement.style.backgroundPosition = 'center';
+                    imageElement.style.backgroundSize = 'cover';
+                    var textElement = document.createElement('p');
+                    textElement.textContent = `${book.name}`;
+                    li.appendChild(imageElement);
+                    li.appendChild(textElement);
+                    li.style.display = 'flex';
+                    li.style.flexDirection = 'row';
+                    li.style.justifyContent = 'between';
+                    li.style.marginBottom = '20px'
+                    li.style.marginTop = '10px';
                     userBookResult.appendChild(li);
                 });
             } else {
