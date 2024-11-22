@@ -94,7 +94,7 @@ const routes = [
         path: "publisher/create",
         name: "publisher.create",
         component: createPublisher,
-        meta: { requiresRole: ["staff"] },
+        meta: { requiresRole: ["manager"] },
       },
       {
         path: "publisher/edit/:id",

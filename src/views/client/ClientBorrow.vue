@@ -44,8 +44,8 @@
                 <div class="">
                     <h2>Bạn có tài khoản chưa?</h2>
                     <div class="btn-group my-4 d-flex flex-row justify-content-evenly">
-                        <a class="btn btn-success" @click="displayNormalForm()">Đã có tài khoản</a>
-                        <a class="btn btn-danger" @click="displayRegisterForm()">Chưa có tài khoản</a>
+                        <a class="btn btn-success" @click="displayNormalForm()">Đã đăng mượn trước đó</a>
+                        <a class="btn btn-danger" @click="displayRegisterForm()">Chưa mượn bao giờ</a>
                     </div>
 
                     <div id="normal-form" class="hidden">
@@ -228,7 +228,7 @@ export default {
                             autocapitalize: "off"
                         },
                         showCancelButton: true,
-                        confirmButtonText: "Look up",
+                        confirmButtonText: "Xác nhận",
 
                         preConfirm: async (code) => {
                             try {

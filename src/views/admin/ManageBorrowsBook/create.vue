@@ -59,7 +59,7 @@
                                 <p id="bookPrice" style="margin: 0 10px;"></p>
                             </div>
                             <div class="mt-3 d-flex flex-row">
-                                <h5>Số lượng sách: </h5>
+                                <h5>Số lượng sách trong thư viện: </h5>
                                 <p id="bookQuantity" style="margin: 0 10px;"></p>
                             </div>
                             <div class="mt-3 d-flex flex-row">
